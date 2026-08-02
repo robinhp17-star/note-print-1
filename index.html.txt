@@ -1,0 +1,50 @@
+function setPagesPerSheet(val) {
+      pagesPerSheet = val;
+      document.querySelectorAll('#pagesPerSheetGroup .btn-option').forEach(btn => {
+        btn.classList.toggle('active', parseInt(btn.dataset.val) === val);
+      });
+      calculate();
+    }
+
+    function setPrintSides(val) {
+      printSides = val;
+      document.querySelectorAll('#sidesGroup .btn-option').forEach(btn => {
+        btn.classList.toggle('active', parseInt(btn.dataset.val) === val);
+      });
+      calculate();
+    }
+
+    function calculate() {
+      const totalPages = parseInt(document.getElementById('totalPages').value) || 0;
+      const pricePerSheet = parseFloat(document.getElementById('pricePerSheet').value) || 0;
+      const booklets = parseInt(document.getElementById('booklets').value) || 1;
+      const orientation = document.getElementById('orientation').value;
+
+      const totalPrintedSides = Math.ceil(totalPages / pagesPerSheet);
+      const totalSheetsNeeded = Math.ceil(totalPrintedSides / printSides);
+      const totalCost = totalPrintedSides * pricePerSheet;
+      
+      const normalSheetsNeeded = Math.ceil(totalPages / 1);
+      const savings = Math.max(0, Math.round(((normalSheetsNeeded - totalSheetsNeeded) / normalSheetsNeeded) * 100));
+
+      document.getElementById('outTotalSheets').innerText = totalSheetsNeeded;
+      document.getElementById('outImpressionCount').innerText = totalPrintedSides;
+      document.getElementById('outPagesPerBook').innerText = Math.ceil(totalPages / booklets);
+      document.getElementById('outPaperSaving').innerText = savings + '%';
+      document.getElementById('outTotalCost').innerText = '₹ ' + totalCost.toFixed(2);
+
+      const previewSheet = document.getElementById('previewSheet');
+      previewSheet.className = paper-sheet ${orientation} grid-${pagesPerSheet};
+      previewSheet.innerHTML = '';
+      for (let i = 1; i <= pagesPerSheet; i++) {
+        const box = document.createElement('div');
+        box.className = 'page-box';
+        box.innerText = P${i};
+        previewSheet.appendChild(box);
+      }
+    }
+
+    window.onload = calculate;
+  </script>
+</body>
+</html>
