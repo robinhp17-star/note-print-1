@@ -1,886 +1,384 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NotesPrint - Notes bhejo, print pao.</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <title>WE BUILD - Course Video Portal</title>
     <style>
         :root {
-            --bg-color: #FAF4E8;
-            --pink: #FF77BC;
-            --yellow: #FFD25A;
-            --green: #25D366;
-            --cyan: #55D6F6;
-            --purple: #B19EE8;
-            --border: #000000;
+            --primary-blue: #0284c7;
+            --secondary-blue: #0369a1;
+            --dark-blue: #0f172a;
+            --light-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --white: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
         }
 
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            scroll-behavior: smooth;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: #000;
-            overflow-x: hidden;
-            padding-bottom: 90px;
-        }
-
-        .mono {
-            font-family: 'Space Mono', monospace;
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            line-height: 1.6;
         }
 
         /* Header */
         header {
+            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
+            color: var(--white);
             padding: 20px;
-            border-bottom: 3px solid var(--border);
-            background: #FFF;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
         }
 
-        .logo span {
-            color: #FF5DA2;
+        header p {
+            font-size: 1rem;
+            color: #e2e8f0;
         }
 
+        /* Main Container */
         .container {
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 24px 18px;
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
-        /* Hero Badges & Buttons */
-        .badge {
-            display: inline-block;
-            border: 2.5px solid var(--border);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 800;
-            box-shadow: 2.5px 3px 0px #000;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 16px;
-        }
-
-        .badge-yellow { background-color: var(--yellow); }
-        .badge-pink { background-color: var(--pink); }
-
-        .hero-title {
-            font-size: 44px;
-            line-height: 1.05;
-            font-weight: 800;
-            margin-bottom: 18px;
-        }
-
-        .hero-title span { color: #FF5DA2; }
-
-        .hero-desc {
-            font-size: 15px;
-            line-height: 1.5;
-            color: #333;
+        /* Breadcrumb / Navigation tracker */
+        .breadcrumb {
+            background: var(--white);
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
             font-weight: 600;
-            margin-bottom: 24px;
+            color: var(--primary-blue);
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
 
-        .btn-main {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background-color: var(--pink);
-            color: #000;
-            font-size: 17px;
-            font-weight: 800;
-            padding: 16px;
-            border-radius: 35px;
-            border: 2.5px solid var(--border);
-            box-shadow: 3.5px 4px 0px #000;
-            text-decoration: none;
-            width: 100%;
-            margin-bottom: 20px;
+        .breadcrumb span {
+            color: var(--text-muted);
             cursor: pointer;
         }
 
-        .feature-stack {
+        .breadcrumb span:hover {
+            color: var(--primary-blue);
+            text-decoration: underline;
+        }
+
+        /* Section Cards Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-blue);
+            box-shadow: 0 10px 20px rgba(2, 132, 199, 0.15);
+        }
+
+        .card h3 {
+            font-size: 1.25rem;
+            color: var(--dark-blue);
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Lecture List Styling */
+        .lecture-list {
             display: flex;
             flex-direction: column;
             gap: 12px;
-            margin-bottom: 30px;
         }
 
-        .feature-pill {
+        .lecture-item {
+            background: var(--white);
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 1px solid var(--border-color);
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            border: 2.5px solid var(--border);
-            padding: 11px 16px;
-            border-radius: 30px;
-            font-size: 13px;
-            font-weight: 800;
-            box-shadow: 3px 3px 0px #000;
+            cursor: pointer;
+            transition: background 0.2s;
         }
 
-        /* Mockup Frame Section */
-        .mockup-wrapper {
-            position: relative;
-            margin: 40px 0 30px;
+        .lecture-item:hover {
+            background: #e0f2fe;
+            border-color: var(--primary-blue);
         }
 
-        .mockup-tag {
-            position: absolute;
-            z-index: 2;
-            border: 2px solid #000;
+        .lecture-title {
+            font-weight: 600;
+            color: var(--dark-blue);
+        }
+
+        .play-btn {
+            background: var(--primary-blue);
+            color: white;
             padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 800;
-            box-shadow: 2px 2px 0px #000;
-        }
-
-        .tag-top-left { top: -15px; left: -5px; background: var(--pink); }
-        .tag-right { top: 35%; right: -10px; background: var(--purple); }
-        .tag-bottom-left { bottom: -12px; left: 10px; background: var(--cyan); }
-
-        .mockup-frame {
-            border: 3.5px solid #000;
-            border-radius: 24px;
-            background: #FFF;
-            padding: 12px;
-            box-shadow: 6px 7px 0px #000;
-        }
-
-        .mockup-img-box {
-            width: 100%;
-            height: 320px;
-            background: #f0f0f0 url('https://images.unsplash.com/photo-1518458028785-8fbcd101ebb9?auto=format&fit=crop&w=600&q=80') center/cover;
-            border-radius: 16px;
-            border: 2px solid #000;
-        }
-
-        .mockup-footer {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 6px 2px;
-            font-size: 11px;
-            font-weight: 800;
-            color: #555;
-        }
-
-        /* Marquee Ticker */
-        .marquee-bar {
-            background: var(--yellow);
-            border-top: 3px solid #000;
-            border-bottom: 3px solid #000;
-            padding: 12px 0;
-            overflow: hidden;
-            white-space: nowrap;
-            margin: 30px 0;
-        }
-
-        .marquee-content {
-            display: inline-block;
-            animation: marquee 12s linear infinite;
-            font-weight: 800;
-            font-size: 14px;
-            letter-spacing: 0.5px;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        /* Section Cards */
-        .section-header {
-            margin: 35px 0 20px;
-        }
-
-        .section-header h2 {
-            font-size: 32px;
-            font-weight: 800;
-            line-height: 1.1;
-        }
-
-        .info-card {
-            background: #FFF;
-            border: 3px solid #000;
-            border-radius: 20px;
-            padding: 22px;
-            box-shadow: 5px 6px 0px #000;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .card-num {
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            border: 2.5px solid #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 16px;
-            margin-bottom: 14px;
-            box-shadow: 2px 2px 0px #000;
-        }
-
-        .info-card h3 {
-            font-size: 22px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-
-        .info-card p {
-            font-size: 14px;
-            color: #555;
+            border-radius: 6px;
+            font-size: 0.85rem;
             font-weight: 600;
-            line-height: 1.5;
-            margin-bottom: 16px;
         }
 
-        .card-foot {
-            font-size: 11px;
-            font-weight: 800;
-            color: #777;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* Calculator UI */
-        .calc-box {
-            background: #FFF;
-            border: 3px solid #000;
-            border-radius: 24px;
-            padding: 22px;
-            box-shadow: 6px 7px 0px #000;
-        }
-
-        .calc-label {
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #555;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .page-display-box {
-            background: var(--bg-color);
-            border: 2.5px solid #000;
-            border-radius: 16px;
-            padding: 16px;
+        /* Video Player Section */
+        .player-container {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-top: 20px;
             text-align: center;
-            margin-bottom: 14px;
-            box-shadow: 2px 2px 0px #000;
         }
 
-        .page-display-box input {
-            background: transparent;
-            border: none;
+        video {
+            width: 100%;
+            max-height: 500px;
+            background: #000;
+            border-radius: 8px;
             outline: none;
-            font-size: 48px;
-            font-weight: 800;
-            text-align: center;
-            width: 100%;
         }
 
-        .quick-btns {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 24px;
-            flex-wrap: wrap;
-        }
-
-        .q-btn {
-            flex: 1;
-            min-width: 60px;
-            padding: 8px 0;
-            border: 2px solid #000;
-            border-radius: 20px;
-            background: #FFF;
-            font-weight: 800;
-            font-size: 13px;
-            cursor: pointer;
-            box-shadow: 2px 2px 0px #000;
-            text-align: center;
-        }
-
-        .q-btn.active {
-            background: #222;
-            color: #FFF;
-        }
-
-        .toggle-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-
-        .toggle-card {
-            border: 2.5px solid #000;
-            border-radius: 16px;
-            padding: 14px;
-            cursor: pointer;
-            background: #FFF;
-            box-shadow: 3px 3px 0px #000;
-            transition: all 0.1s ease;
-        }
-
-        .toggle-card.selected {
-            background: var(--yellow);
-        }
-
-        .toggle-card h4 {
-            font-size: 15px;
-            font-weight: 800;
-            margin-bottom: 4px;
-        }
-
-        .toggle-card span {
-            font-size: 12px;
+        .video-info {
+            margin-top: 15px;
+            font-size: 1.1rem;
             font-weight: 700;
-            color: #444;
+            color: var(--dark-blue);
         }
 
-        /* Binding Selector with +/- Counter */
-        .binding-box {
-            border: 2.5px solid #000;
-            border-radius: 16px;
-            padding: 14px;
-            background: #FFF;
-            box-shadow: 3px 3px 0px #000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        /* Utility classes */
+        .hidden {
+            display: none !important;
         }
 
-        .binding-box.active {
-            background: var(--purple);
-        }
-
-        .counter-btns {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .cnt-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            border: 2px solid #000;
-            background: #FFF;
-            font-size: 18px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* Back Button */
+        .back-btn {
+            background: var(--dark-blue);
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
             cursor: pointer;
-            box-shadow: 1.5px 1.5px 0px #000;
-            user-select: none;
-        }
-
-        .cnt-num {
-            font-size: 16px;
-            font-weight: 800;
-            min-width: 18px;
-            text-align: center;
-        }
-
-        /* Estimate Box */
-        .estimate-card {
-            background: #FFF;
-            border: 3px solid #000;
-            border-radius: 24px;
-            padding: 22px;
-            box-shadow: 6px 7px 0px #000;
-            margin-top: 25px;
-        }
-
-        .estimate-header {
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            font-weight: 800;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .est-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-        }
-
-        .est-item-title {
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
-        .est-item-sub {
-            font-size: 12px;
-            color: #666;
-            margin-top: 2px;
-        }
-
-        .est-price {
-            font-size: 18px;
-            font-weight: 800;
-        }
-
-        .divider {
-            border-top: 2px dashed #CCC;
-            margin: 15px 0;
-        }
-
-        .total-pay-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 20px 0 8px;
-        }
-
-        .total-pay-title {
-            font-size: 16px;
-            font-weight: 800;
-        }
-
-        .total-pay-amount {
-            font-size: 36px;
-            font-weight: 800;
-        }
-
-        .tip-text {
-            font-size: 12px;
-            color: #555;
             font-weight: 600;
             margin-bottom: 20px;
         }
 
-        .btn-whatsapp {
-            background: var(--green);
-            color: #000;
-            border: 2.5px solid #000;
-            border-radius: 30px;
-            padding: 16px;
-            font-size: 17px;
-            font-weight: 800;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 3.5px 4px 0px #000;
-            text-decoration: none;
-            width: 100%;
-            cursor: pointer;
-        }
-
-        .wa-subtext {
-            text-align: center;
-            font-size: 10px;
-            font-weight: 800;
-            color: #777;
-            margin-top: 10px;
-            letter-spacing: 0.5px;
-        }
-
-        /* Footer */
-        footer {
-            border-top: 3px solid #000;
-            padding: 30px 20px;
-            background: var(--bg-color);
-            margin-top: 40px;
-        }
-
-        .footer-logo {
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 6px;
-        }
-
-        .footer-sub {
-            font-size: 11px;
-            font-weight: 800;
-            color: #666;
-            margin-bottom: 20px;
-            letter-spacing: 0.5px;
-        }
-
-        .footer-info {
-            font-size: 13px;
-            font-weight: 700;
-            color: #444;
-            line-height: 1.8;
-        }
-
-        /* Bottom Sticky Bar */
-        .bottom-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: var(--bg-color);
-            border-top: 3px solid #000;
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 1000;
-        }
-
-        .sticky-order-btn {
-            background: var(--green);
-            border: 2.5px solid #000;
-            padding: 10px 22px;
-            border-radius: 30px;
-            font-weight: 800;
-            font-size: 15px;
-            box-shadow: 3px 3px 0px #000;
-            color: #000;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .back-btn:hover {
+            background: var(--primary-blue);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo">Notes<span>Print</span>.</div>
+        <h1>WE BUILD - Portal</h1>
+        <p>2nd Grade 1st Paper G.K Batch (Recorded From Jaipur Classroom)</p>
     </header>
 
     <div class="container">
-        <!-- Hero Section -->
-        <div class="badge badge-yellow">A4 STUDY MATERIAL • PAN INDIA PRINTING</div>
+        
+        <!-- Breadcrumb Tracker -->
+        <div class="breadcrumb" id="breadcrumb">
+            <span onclick="resetToHome()">Home</span>
+        </div>
 
-        <h1 class="hero-title">
-            Notes bhejo,<br>
-            <span>print pao.</span>
-        </h1>
+        <!-- Back Button (Dynamic) -->
+        <button id="backBtn" class="back-btn hidden" onclick="goBack()">← Go Back</button>
 
-        <p class="hero-desc">
-            Premium 75 GSM A4 par crisp printing — <strong>₹0.40 B&W</strong> ya <strong>₹0.90 Colour</strong> per side. Spiral binding sirf ₹22. COD ke saath 5–7 din me aapke ghar.
-        </p>
-
-        <a href="#calculator" class="btn-main">
-            Calculate your cost ↓
-        </a>
-
-        <div class="feature-stack">
-            <div class="feature-pill" style="background: var(--yellow);">
-                🚚 Pan India Delivery • 5–7 Working Days
-            </div>
-            <div class="feature-pill" style="background: #90EE90;">
-                💵 Cash on Delivery Available
-            </div>
-            <div class="feature-pill" style="background: var(--cyan);">
-                🎨 75 GSM A4 • B&W ₹0.40 / Colour ₹0.90
+        <!-- VIEW 1: COURSES -->
+        <div id="courseView" class="grid-container">
+            <div class="card" onclick="selectCourse('2nd Grade 1st Paper G.K Batch')">
+                <h3>📚 2nd Grade 1st Paper G.K Batch</h3>
+                <p>Recorded From Jaipur Classroom (Rajasthan GK, Polity, History, Geography, Psychology & IR)</p>
             </div>
         </div>
 
-        <!-- Mockup Visual -->
-        <div class="mockup-wrapper">
-            <div class="mockup-tag tag-top-left">Colour ₹0.90/side</div>
-            <div class="mockup-tag tag-right">Spiral ₹22/book</div>
-            <div class="mockup-tag tag-bottom-left">75 GSM A4</div>
-            
-            <div class="mockup-frame">
-                <div class="mockup-img-box"></div>
-                <div class="mockup-footer mono">
-                    <span>75 GSM / A4</span>
-                    <span>B&W + COLOUR</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Ticker Bar -->
-    <div class="marquee-bar">
-        <div class="marquee-content">
-            ★ SPIRAL BINDING ₹22/BOOK &nbsp;&nbsp;&nbsp;&nbsp; ★ COD AVAILABLE &nbsp;&nbsp;&nbsp;&nbsp; ★ PAN INDIA DELIVERY &nbsp;&nbsp;&nbsp;&nbsp; ★ B&W ₹0.40 / SIDE &nbsp;&nbsp;&nbsp;&nbsp; ★ SPIRAL BINDING ₹22/BOOK &nbsp;&nbsp;&nbsp;&nbsp; ★ COD AVAILABLE &nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-    </div>
-
-    <div class="container">
-        <!-- Rate Card Header -->
-        <div class="badge badge-pink">01 — THE RATE CARD</div>
-        <div class="section-header">
-            <h2>Saaf-saaf daam. <span style="color: #FF5DA2;">Koi chhupa charge nahi.</span></h2>
+        <!-- VIEW 2: SUBJECTS -->
+        <div id="subjectView" class="grid-container hidden">
+            <!-- Subjects will be injected via JS -->
         </div>
 
-        <!-- Cards 01 - 04 -->
-        <div class="info-card">
-            <div class="card-num" style="background: var(--yellow);">01</div>
-            <h3>Printing</h3>
-            <p>Black & White sirf ₹0.40 per side, Colour ₹0.90 per side. Premium 75 GSM A4 sheets par crisp output.</p>
-            <div class="card-foot mono">₹0.40 / ₹0.90 PER SIDE</div>
+        <!-- VIEW 3: LECTURES -->
+        <div id="lectureView" class="lecture-list hidden">
+            <!-- Lectures list will be injected via JS -->
         </div>
 
-        <div class="info-card">
-            <div class="card-num" style="background: var(--pink);">02</div>
-            <h3>Spiral Binding</h3>
-            <p>Loose pages ko proper book bana do — sirf ₹22 per book. Padhai ke liye ekdum ready notes.</p>
-            <div class="card-foot mono">₹22 / BOOK</div>
+        <!-- VIEW 4: VIDEO PLAYER -->
+        <div id="playerView" class="player-container hidden">
+            <video id="videoPlayer" controls autoplay>
+                Your browser does not support the video tag.
+            </video>
+            <div class="video-info" id="videoTitleDisplay">Lecture Title</div>
         </div>
 
-        <div class="info-card">
-            <div class="card-num" style="background: var(--cyan);">03</div>
-            <h3>Delivery</h3>
-            <p>500 pages tak ₹19, 1000 tak sirf ₹9, aur 1000+ pages par bilkul FREE. 5–7 working days me pan India.</p>
-            <div class="card-foot mono">FREE ABOVE 1000 PAGES</div>
-        </div>
-
-        <div class="info-card">
-            <div class="card-num" style="background: var(--purple);">04</div>
-            <h3>Payment</h3>
-            <p>Cash on Delivery available hai — print haath me aaye, tab paisa do. Chaaho to online payment bhi karo.</p>
-            <div class="card-foot mono">COD / ONLINE</div>
-        </div>
-
-        <!-- Live Calculator -->
-        <div style="margin-top: 50px;" id="calculator">
-            <div class="badge badge-yellow" style="background: var(--cyan);">02 — LIVE CALCULATOR</div>
-            <div class="section-header">
-                <h2>Kitna lagega? <span style="color: #FF5DA2;">Abhi dekho.</span></h2>
-            </div>
-
-            <div class="feature-stack">
-                <div class="feature-pill" style="background: var(--yellow);">🚚 Pan India Delivery • 5–7 Working Days</div>
-                <div class="feature-pill" style="background: #90EE90;">💵 Cash on Delivery Available</div>
-                <div class="feature-pill" style="background: var(--cyan);">🎨 75 GSM A4 • B&W ₹0.40 / Colour ₹0.90</div>
-            </div>
-
-            <div class="calc-box">
-                <span class="calc-label mono">ENTER TOTAL PAGES / SIDES</span>
-                
-                <div class="page-display-box">
-                    <input type="number" id="pageCount" value="250" oninput="updateCalculator()">
-                </div>
-
-                <div class="quick-btns">
-                    <div class="q-btn" onclick="setPages(100, event)">100</div>
-                    <div class="q-btn active" onclick="setPages(250, event)">250</div>
-                    <div class="q-btn" onclick="setPages(500, event)">500</div>
-                    <div class="q-btn" onclick="setPages(1000, event)">1,000</div>
-                    <div class="q-btn" onclick="setPages(2000, event)">2,000</div>
-                </div>
-
-                <span class="calc-label mono">PRINT TYPE</span>
-                <div class="toggle-grid">
-                    <div class="toggle-card selected" id="typeBW" onclick="setPrintType('bw')">
-                        <h4>Black & White</h4>
-                        <span class="mono">₹0.40/side</span>
-                    </div>
-                    <div class="toggle-card" id="typeColor" onclick="setPrintType('color')">
-                        <h4>Colour</h4>
-                        <span class="mono">₹0.90/side</span>
-                    </div>
-                </div>
-
-                <span class="calc-label mono" style="margin-top: 15px;">BINDING OPTION</span>
-                <div class="binding-box active" id="bindingBox">
-                    <div>
-                        <h4 style="font-size: 15px; font-weight: 800;">📖 Spiral Binding</h4>
-                        <span class="mono" style="font-size: 11px; font-weight: 700;">₹22/book</span>
-                    </div>
-                    <div class="counter-btns">
-                        <div class="cnt-btn" onclick="changeBinding(-1)">-</div>
-                        <div class="cnt-num" id="bindingCountDisplay">1</div>
-                        <div class="cnt-btn" onclick="changeBinding(1)">+</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Estimate Output -->
-            <div class="estimate-card">
-                <div class="estimate-header mono">
-                    <span>ESTIMATE</span>
-                    <span>NOTESPRINT.</span>
-                </div>
-
-                <div class="est-row">
-                    <div>
-                        <div class="est-item-title" id="estPrintTitle">A4 BLACK & WHITE PRINT · 75 GSM</div>
-                        <div class="est-item-sub mono" id="estPrintSub">250 pages × ₹0.40</div>
-                    </div>
-                    <div class="est-price" id="estPrintPrice">₹100</div>
-                </div>
-
-                <div class="est-row" id="bindingRow">
-                    <div>
-                        <div class="est-item-title">SPIRAL BINDING</div>
-                        <div class="est-item-sub mono" id="bindingEstSub">1 book × ₹22</div>
-                    </div>
-                    <div class="est-price" id="bindingEstPrice">₹22</div>
-                </div>
-
-                <div class="est-row">
-                    <div>
-                        <div class="est-item-title">DELIVERY · PAN INDIA</div>
-                        <div class="est-item-sub mono" id="deliverySub">₹19 ≤ 500 pages · ₹9 ≤ 1000 pages</div>
-                    </div>
-                    <div class="est-price" id="estDeliveryPrice">₹19</div>
-                </div>
-
-                <div class="divider"></div>
-
-                <div class="total-pay-row">
-                    <div class="total-pay-title">TOTAL PAYABLE</div>
-                    <div class="total-pay-amount" id="totalPayable">₹141</div>
-                </div>
-
-                <div class="tip-text mono" id="tipText">251 aur pages add karo, delivery ₹9 ho jayegi.</div>
-
-                <a href="#" id="waLink" target="_blank" class="btn-whatsapp">
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                    Order on WhatsApp
-                </a>
-
-                <div class="wa-subtext mono">WHATSAPP KHULNE PAR APNI PDF AUR ADDRESS BHEJ DO · COD / ONLINE</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container" style="padding: 0;">
-            <div class="footer-logo">Notes<span>Print</span>.</div>
-            <div class="footer-sub mono">A4 STUDY MATERIAL · PRINTED IN INDIA</div>
-            <div class="footer-info mono">
-                B&W ₹0.40 · Colour ₹0.90 /side · Binding ₹22 · COD<br>
-                WhatsApp: +91 9413618248
-            </div>
-        </div>
-    </footer>
-
-    <!-- Sticky Bottom Bar -->
-    <div class="bottom-bar">
-        <div>
-            <div style="font-size: 10px; font-weight: 800; color: #666;" class="mono">ESTIMATED TOTAL</div>
-            <div style="font-size: 24px; font-weight: 800;" id="stickyTotal">₹141</div>
-        </div>
-        <a href="#calculator" class="sticky-order-btn">
-            💬 Order
-        </a>
     </div>
 
     <script>
-        let printType = 'bw';
-        let bindingCount = 1;
-
-        function setPages(val, e) {
-            document.getElementById('pageCount').value = val;
-            
-            document.querySelectorAll('.q-btn').forEach(btn => btn.classList.remove('active'));
-            if (e && e.target) {
-                e.target.classList.add('active');
+        // Data Structure mapping Subjects and their respective Lectures & PDFs
+        const courseData = {
+            "2nd Grade 1st Paper G.K Batch": {
+                "राजस्थान नवीन जिले": [
+                    { title: "नवीन जिलों संबन्धित परिचर्चा - 11 February (Video)", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2451536/plain/720x1280.mp4" },
+                    { title: "नवीन जिलों संबन्धित परिचर्चा - PDF Notes", url: "https://apps-s3-prod.utkarshapp.com/admin_v1/file_manager/pdf/729708245668926800_video_2451536.pdf", isPdf: true }
+                ],
+                "मानचित्रण - मनोज कुमार सर": [
+                    { title: "Part-1 - मानचित्रण परिचय - 10-June (Video)", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2153568/plain/720x1280.mp4" },
+                    { title: "Part-1 - मानचित्रण परिचय - PDF Notes", url: "https://apps-s3-prod.utkarshapp.com/admin_v1/file_manager/pdf/894918520751342300_PDF.pdf", isPdf: true }
+                ],
+                "अंतरराष्ट्रीय संबंध - सुनील सर": [
+                    { title: "Part-1 - पाठ्यक्रम परिचर्चा - 07-May (Video)", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2113723/plain/720x1280.mp4" },
+                    { title: "Part-2 - पाठ्यक्रम परिचर्चा - 08-May (Video)", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2115272/plain/720x1280.mp4" },
+                    { title: "Part-3 - पाठ्यक्रम परिचर्चा - 09-May (Video)", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2116428/plain/720x1280.mp4" },
+                    { title: "Part-1 - पाठ्यक्रम परिचर्चा - PDF Notes", url: "https://apps-s3-prod.utkarshapp.com/admin_v1/file_manager/pdf/414654971756381000_PDF.pdf", isPdf: true }
+                ],
+                "राजव्यवस्था & इतिहास (Tests & Practice)": [
+                    { title: "राजव्यवस्था - AJEET SIR - 14-March", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2057971/plain/720x1280.mp4" },
+                    { title: "राजव्यवस्था(01-20) - Vikram sir - 21-March", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2070460/plain/720x1280.mp4" },
+                    { title: "इतिहास - Naresh Sir - 21-March", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2075864/plain/720x1280.mp4" },
+                    { title: "मनोविज्ञान - Rajesh sir - 04-April", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2078626/plain/720x1280.mp4" },
+                    { title: "विश्व एवं भारत का भूगोल - 15-July", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2203524/plain/720x1280.mp4" }
+                ]
             }
+        };
 
-            updateCalculator();
+        let currentStep = 'home'; // home, subjects, lectures, player
+        let selectedCourseName = '';
+        let selectedSubjectName = '';
+
+        function selectCourse(courseName) {
+            selectedCourseName = courseName;
+            currentStep = 'subjects';
+            updateBreadcrumb();
+            document.getElementById('backBtn').classList.remove('hidden');
+            
+            document.getElementById('courseView').classList.add('hidden');
+            let subView = document.getElementById('subjectView');
+            subView.innerHTML = '';
+            subView.classList.remove('hidden');
+
+            let subjects = Object.keys(courseData[courseName]);
+            subjects.forEach(sub => {
+                subView.innerHTML += `
+                    <div class="card" onclick="selectSubject('${sub}')">
+                        <h3>📖 ${sub}</h3>
+                        <p>Click to view chapters & lectures</p>
+                    </div>
+                `;
+            });
         }
 
-        function setPrintType(type) {
-            printType = type;
-            if(type === 'bw') {
-                document.getElementById('typeBW').classList.add('selected');
-                document.getElementById('typeColor').classList.remove('selected');
-            } else {
-                document.getElementById('typeColor').classList.add('selected');
-                document.getElementById('typeBW').classList.remove('selected');
-            }
-            updateCalculator();
+        function selectSubject(subjectName) {
+            selectedSubjectName = subjectName;
+            currentStep = 'lectures';
+            updateBreadcrumb();
+
+            document.getElementById('subjectView').classList.add('hidden');
+            let lecView = document.getElementById('lectureView');
+            lecView.innerHTML = '';
+            lecView.classList.remove('hidden');
+
+            let lectures = courseData[selectedCourseName][subjectName];
+            lectures.forEach(lec => {
+                if(lec.isPdf) {
+                    lecView.innerHTML += `
+                        <div class="lecture-item" onclick="window.open('${lec.url}', '_blank')">
+                            <span class="lecture-title">📄 ${lec.title}</span>
+                            <span class="play-btn" style="background: #0f172a;">View PDF</span>
+                        </div>
+                    `;
+                } else {
+                    lecView.innerHTML += `
+                        <div class="lecture-item" onclick="playVideo('${lec.title}', '${lec.url}')">
+                            <span class="lecture-title">▶ ${lec.title}</span>
+                            <span class="play-btn">Play Video</span>
+                        </div>
+                    `;
+                }
+            });
         }
 
-        function changeBinding(delta) {
-            bindingCount = Math.max(0, bindingCount + delta);
-            document.getElementById('bindingCountDisplay').innerText = bindingCount;
-            
-            const box = document.getElementById('bindingBox');
-            if(bindingCount > 0) {
-                box.classList.add('active');
-            } else {
-                box.classList.remove('active');
-            }
-            updateCalculator();
+        function playVideo(title, url) {
+            currentStep = 'player';
+            updateBreadcrumb();
+
+            document.getElementById('lectureView').classList.add('hidden');
+            let playerView = document.getElementById('playerView');
+            playerView.classList.remove('hidden');
+
+            let video = document.getElementById('videoPlayer');
+            video.src = url;
+            video.play();
+            document.getElementById('videoTitleDisplay').innerText = title;
         }
 
-        function updateCalculator() {
-            let pages = parseInt(document.getElementById('pageCount').value) || 0;
-            let rate = printType === 'bw' ? 0.40 : 0.90;
-            
-            let printCost = pages * rate;
-            let bindingCost = bindingCount * 22;
-            
-            // Delivery Calculation Rule
-            let delivery = 19;
-            let tip = "";
-
-            if (pages > 1000) {
-                delivery = 0;
-                tip = "Woohoo! Aapki delivery bilkul FREE hai.";
-            } else if (pages > 500) {
-                delivery = 9;
-                let remaining = 1001 - pages;
-                tip = `${remaining} aur pages add karo, delivery FREE ho jayegi.`;
-            } else {
-                delivery = 19;
-                let remaining = 501 - pages;
-                tip = `${remaining} aur pages add karo, delivery ₹9 ho jayegi.`;
+        function updateBreadcrumb() {
+            let bc = document.getElementById('breadcrumb');
+            if(currentStep === 'home') {
+                bc.innerHTML = `<span>Home</span>`;
+            } else if(currentStep === 'subjects') {
+                bc.innerHTML = `<span onclick="resetToHome()">Home</span> > <span>${selectedCourseName}</span>`;
+            } else if(currentStep === 'lectures') {
+                bc.innerHTML = `<span onclick="resetToHome()">Home</span> > <span onclick="selectCourse('${selectedCourseName}')">${selectedCourseName}</span> > <span>${selectedSubjectName}</span>`;
+            } else if(currentStep === 'player') {
+                bc.innerHTML = `<span onclick="resetToHome()">Home</span> > <span onclick="selectCourse('${selectedCourseName}')">${selectedCourseName}</span> > <span onclick="selectSubject('${selectedSubjectName}')">${selectedSubjectName}</span> > <span>Playing Video</span>`;
             }
-
-            let total = Math.round(printCost + bindingCost + delivery);
-
-            // Update DOM Elements
-            document.getElementById('estPrintTitle').innerText = printType === 'bw' ? "A4 BLACK & WHITE PRINT · 75 GSM" : "A4 COLOUR PRINT · 75 GSM";
-            document.getElementById('estPrintSub').innerText = `${pages} pages × ₹${rate.toFixed(2)}`;
-            document.getElementById('estPrintPrice').innerText = `₹${Math.round(printCost)}`;
-            
-            const bindingRow = document.getElementById('bindingRow');
-            if(bindingCount > 0) {
-                bindingRow.style.display = "flex";
-                document.getElementById('bindingEstSub').innerText = `${bindingCount} book × ₹22`;
-                document.getElementById('bindingEstPrice').innerText = `₹${bindingCost}`;
-            } else {
-                bindingRow.style.display = "none";
-            }
-
-            document.getElementById('estDeliveryPrice').innerText = delivery === 0 ? "FREE" : `₹${delivery}`;
-            document.getElementById('totalPayable').innerText = `₹${total}`;
-            document.getElementById('stickyTotal').innerText = `₹${total}`;
-            document.getElementById('tipText').innerText = tip;
-
-            // Formatting exact WhatsApp Message like video
-            let printTypeText = printType === 'bw' ? 'Black & White (₹0.40/side)' : 'Colour (₹0.90/side)';
-            let bindingMsg = bindingCount > 0 ? `\n📚 Spiral Binding: ${bindingCount} Book` : '';
-
-            let rawMessage = `Namaste! Mujhe A4 Study Material print karwana hai.\n\n` +
-                             `📄 Total Pages: ${pages}\n` +
-                             `🖨️ Print Type: ${printTypeText}` +
-                             `${bindingMsg}\n` +
-                             `💰 Estimated Total: ₹${total}\n\n` +
-                             `💳 Payment Option: Cash on Delivery (COD) / Online\n\n` +
-                             `Main apni PDF file aur Address yahan share kar raha/rahi hu.`;
-
-            let encodedMsg = encodeURIComponent(rawMessage);
-            document.getElementById('waLink').href = `https://wa.me/919413618248?text=${encodedMsg}`;
         }
 
-        updateCalculator();
+        function resetToHome() {
+            currentStep = 'home';
+            updateBreadcrumb();
+            document.getElementById('backBtn').classList.add('hidden');
+            
+            document.getElementById('courseView').classList.remove('hidden');
+            document.getElementById('subjectView').classList.add('hidden');
+            document.getElementById('lectureView').classList.add('hidden');
+            document.getElementById('playerView').classList.add('hidden');
+            document.getElementById('videoPlayer').pause();
+        }
+
+        function goBack() {
+            if(currentStep === 'player') {
+                document.getElementById('videoPlayer').pause();
+                selectSubject(selectedSubjectName);
+            } else if(currentStep === 'lectures') {
+                selectCourse(selectedCourseName);
+            } else if(currentStep === 'subjects') {
+                resetToHome();
+            }
+        }
     </script>
 </body>
 </html>
