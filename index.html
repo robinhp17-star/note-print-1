@@ -1,384 +1,979 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WE BUILD - Course Video Portal</title>
+    <title>2nd Grade G.K. & Course Portal - Made by Robin Singh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-blue: #0284c7;
-            --secondary-blue: #0369a1;
-            --dark-blue: #0f172a;
-            --light-bg: #f8fafc;
+            --primary: #4f46e5;
+            --primary-dark: #4338ca;
+            --accent: #06b6d4;
+            --bg-color: #f8fafc;
             --card-bg: #ffffff;
-            --white: #ffffff;
             --text-main: #1e293b;
             --text-muted: #64748b;
-            --border-color: #cbd5e1;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --radius: 12px;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         body {
-            background-color: var(--light-bg);
+            background-color: var(--bg-color);
             color: var(--text-main);
-            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Header */
         header {
-            background: linear-gradient(135deg, var(--dark-blue), var(--primary-blue));
-            color: var(--white);
-            padding: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 2rem 1rem;
             text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            box-shadow: var(--shadow);
+            position: relative;
         }
 
         header h1 {
-            font-size: 2.2rem;
-            margin-bottom: 5px;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
         }
 
         header p {
-            font-size: 1rem;
-            color: #e2e8f0;
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 0.5rem;
         }
 
-        /* Main Container */
+        .creator-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 1.5rem auto 0;
+            position: relative;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.8rem;
+            border-radius: 50px;
+            border: none;
+            font-size: 0.95rem;
+            outline: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
         .container {
             max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            flex: 1;
+            width: 100%;
         }
 
-        /* Breadcrumb / Navigation tracker */
         .breadcrumb {
-            background: var(--white);
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            font-weight: 600;
-            color: var(--primary-blue);
             display: flex;
-            gap: 10px;
             align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            background: #fff;
+            padding: 0.75rem 1rem;
+            border-radius: var(--radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .breadcrumb span {
-            color: var(--text-muted);
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
             cursor: pointer;
         }
 
-        .breadcrumb span:hover {
-            color: var(--primary-blue);
+        .breadcrumb a:hover {
             text-decoration: underline;
         }
 
-        /* Section Cards Grid */
-        .grid-container {
+        .section-title {
+            font-size: 1.4rem;
+            margin-bottom: 1.25rem;
+            color: var(--text-main);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
+            gap: 1.25rem;
         }
 
         .card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
             cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
         .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary-blue);
-            box-shadow: 0 10px 20px rgba(2, 132, 199, 0.15);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: var(--primary);
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
         }
 
         .card h3 {
-            font-size: 1.25rem;
-            color: var(--dark-blue);
-            margin-bottom: 10px;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            font-weight: 600;
         }
 
         .card p {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
+            margin-bottom: 1rem;
         }
 
-        /* Lecture List Styling */
-        .lecture-list {
+        .badge {
+            display: inline-block;
+            background: #e0e7ff;
+            color: var(--primary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            align-self: flex-start;
+        }
+
+        .item-list {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 0.75rem;
         }
 
-        .lecture-item {
-            background: var(--white);
-            padding: 15px 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border: 1px solid var(--border-color);
+        .item-row {
+            background: var(--card-bg);
+            padding: 1rem 1.25rem;
+            border-radius: var(--radius);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            cursor: pointer;
+            justify-content: space-between;
+            gap: 1rem;
             transition: background 0.2s;
         }
 
-        .lecture-item:hover {
-            background: #e0f2fe;
-            border-color: var(--primary-blue);
+        .item-row:hover {
+            background: #f1f5f9;
         }
 
-        .lecture-title {
-            font-weight: 600;
-            color: var(--dark-blue);
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex: 1;
         }
 
-        .play-btn {
-            background: var(--primary-blue);
-            color: white;
-            padding: 6px 14px;
+        .item-info i {
+            font-size: 1.5rem;
+        }
+
+        .item-info i.fa-video {
+            color: #ef4444;
+        }
+
+        .item-info i.fa-file-pdf {
+            color: #f59e0b;
+        }
+
+        .item-details h4 {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+
+        .item-details span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
             border-radius: 6px;
+            text-decoration: none;
             font-size: 0.85rem;
-            font-weight: 600;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            transition: background 0.2s;
+            white-space: nowrap;
+            cursor: pointer;
+            border: none;
         }
 
-        /* Video Player Section */
-        .player-container {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            margin-top: 20px;
-            text-align: center;
+        .btn-primary {
+            background: var(--primary);
+            color: white;
         }
 
-        video {
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            background: var(--border);
+        }
+
+        /* Video Player Modal Style */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-height: 500px;
-            background: #000;
-            border-radius: 8px;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: var(--radius);
+            max-width: 850px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-header {
+            padding: 1rem 1.5rem;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            background: black;
+            aspect-ratio: 16/9;
+        }
+
+        .video-container video {
+            width: 100%;
+            height: 100%;
             outline: none;
         }
 
-        .video-info {
-            margin-top: 15px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--dark-blue);
+        .player-controls-bar {
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f1f5f9;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 1rem;
         }
 
-        /* Utility classes */
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .control-group select {
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            outline: none;
+            background: white;
+            font-size: 0.85rem;
+        }
+
+        .modal-footer-credit {
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            background: #fff;
+            border-top: 1px solid var(--border);
+        }
+
         .hidden {
             display: none !important;
         }
 
-        /* Back Button */
-        .back-btn {
-            background: var(--dark-blue);
-            color: white;
-            padding: 8px 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            margin-bottom: 20px;
+        footer {
+            text-align: center;
+            padding: 1.5rem;
+            background: white;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: auto;
         }
 
-        .back-btn:hover {
-            background: var(--primary-blue);
+        footer span {
+            display: block;
+            margin-top: 0.3rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            .item-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .item-row .btn {
+                width: 100%;
+                justify-content: center;
+            }
+            .player-controls-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>WE BUILD - Portal</h1>
-        <p>2nd Grade 1st Paper G.K Batch (Recorded From Jaipur Classroom)</p>
+        <h1><i class="fa-solid fa-graduation-cap"></i> 2nd Grade Online Learning Portal</h1>
+        <p>कोर्स, विषय और वीडियो लेक्चर्स की व्यवस्थित सूची</p>
+        <div class="creator-tag">Made by Robin Singh</div>
+        <div class="search-container">
+            <i class="fa-solid fa-search"></i>
+            <input type="text" id="searchInput" placeholder="विषय या टॉपिक खोजें..." onkeyup="filterContent()">
+        </div>
     </header>
 
     <div class="container">
-        
-        <!-- Breadcrumb Tracker -->
+        <!-- Breadcrumb Navigation -->
         <div class="breadcrumb" id="breadcrumb">
-            <span onclick="resetToHome()">Home</span>
+            <a onclick="showCourses()"><i class="fa-solid fa-house"></i> होम</a>
+            <span id="bcCourse" class="hidden">/ <a id="bcCourseLink" onclick=""></a></span>
+            <span id="bcSubject" class="hidden">/ <span id="bcSubjectText"></span></span>
         </div>
 
-        <!-- Back Button (Dynamic) -->
-        <button id="backBtn" class="back-btn hidden" onclick="goBack()">← Go Back</button>
-
-        <!-- VIEW 1: COURSES -->
-        <div id="courseView" class="grid-container">
-            <div class="card" onclick="selectCourse('2nd Grade 1st Paper G.K Batch')">
-                <h3>📚 2nd Grade 1st Paper G.K Batch</h3>
-                <p>Recorded From Jaipur Classroom (Rajasthan GK, Polity, History, Geography, Psychology & IR)</p>
-            </div>
+        <!-- View 1: Courses -->
+        <div id="coursesView">
+            <h2 class="section-title"><i class="fa-solid fa-folder-open"></i> सभी कोर्सेज</h2>
+            <div class="grid" id="coursesGrid"></div>
         </div>
 
-        <!-- VIEW 2: SUBJECTS -->
-        <div id="subjectView" class="grid-container hidden">
-            <!-- Subjects will be injected via JS -->
+        <!-- View 2: Subjects -->
+        <div id="subjectsView" class="hidden">
+            <h2 class="section-title" id="subjectsTitle">विषय सूची</h2>
+            <div class="grid" id="subjectsGrid"></div>
         </div>
 
-        <!-- VIEW 3: LECTURES -->
-        <div id="lectureView" class="lecture-list hidden">
-            <!-- Lectures list will be injected via JS -->
+        <!-- View 3: Videos / Items -->
+        <div id="itemsView" class="hidden">
+            <h2 class="section-title" id="itemsTitle">वीडियो लेक्चर्स एवं सामग्री</h2>
+            <div class="item-list" id="itemsList"></div>
         </div>
-
-        <!-- VIEW 4: VIDEO PLAYER -->
-        <div id="playerView" class="player-container hidden">
-            <video id="videoPlayer" controls autoplay>
-                Your browser does not support the video tag.
-            </video>
-            <div class="video-info" id="videoTitleDisplay">Lecture Title</div>
-        </div>
-
     </div>
 
+    <!-- Video Player Modal -->
+    <div id="videoModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalVideoTitle">वीडियो प्लेबैक</h3>
+                <button class="close-btn" onclick="closeVideoModal()">&times;</button>
+            </div>
+            <div class="video-container">
+                <video id="customVideoPlayer" controls controlsList="nodownload">
+                    आपका ब्राउज़र वीडियो टैग का समर्थन नहीं करता है।
+                </video>
+            </div>
+            <div class="player-controls-bar">
+                <div class="control-group">
+                    <label for="playbackSpeed"><i class="fa-solid fa-gauge-high"></i> स्पीड:</label>
+                    <select id="playbackSpeed" onchange="changeSpeed()">
+                        <option value="0.5">0.5x</option>
+                        <option value="1" selected>1.0x (सामान्य)</option>
+                        <option value="1.25">1.25x</option>
+                        <option value="1.5">1.5x</option>
+                        <option value="2">2.0x</option>
+                        <option value="3">3.0x</option>
+                    </select>
+                </div>
+                <div class="control-group">
+                    <label for="qualitySelector"><i class="fa-solid fa-sliders"></i> क्वालिटी विकल्प:</label>
+                    <select id="qualitySelector" onchange="changeQuality()">
+                        <option value="720p">720p HD (डिफ़ॉल्ट)</option>
+                        <option value="480p">480p Medium</option>
+                        <option value="360p">360p Low</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer-credit">Made by Robin Singh</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 2nd Grade Study Portal. All rights reserved.</p>
+        <span>Made by Robin Singh</span>
+    </footer>
+
     <script>
-        // Data Structure mapping Subjects and their respective Lectures & PDFs
-        const courseData = {
-            "2nd Grade 1st Paper G.K Batch": {
+        const portalData = {
+            "2nd Grade 1st Paper G.K Batch (Recorded From Jaipur Classroom)": {
                 "राजस्थान नवीन जिले": [
-                    { title: "नवीन जिलों संबन्धित परिचर्चा - 11 February (Video)", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2451536/plain/720x1280.mp4" },
-                    { title: "नवीन जिलों संबन्धित परिचर्चा - PDF Notes", url: "https://apps-s3-prod.utkarshapp.com/admin_v1/file_manager/pdf/729708245668926800_video_2451536.pdf", isPdf: true }
+                    {title: "नवीन जिलों संबन्धित परिचर्चा - 11 February (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2451536/plain/720x1280.mp4"},
+                    {title: "नवीन जिलों संबन्धित परिचर्चा - 11 February (PDF)", type: "pdf", url: "https://apps-s3-prod.utkarshapp.com/admin_v1/file_manager/pdf/729708245668926800_video_2451536.pdf"}
                 ],
-                "मानचित्रण - मनोज कुमार सर": [
-                    { title: "Part-1 - मानचित्रण परिचय - 10-June (Video)", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2153568/plain/720x1280.mp4" },
-                    { title: "Part-1 - मानचित्रण परिचय - PDF Notes", url: "https://apps-s3-prod.utkarshapp.com/admin_v1/file_manager/pdf/894918520751342300_PDF.pdf", isPdf: true }
+                "मानचित्रण (मनोज कुमार सर)": [
+                    {title: "Part-1 - मानचित्रण परिचय- 10-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2153568/plain/720x1280.mp4"},
+                    {title: "Part-1 - मानचित्रण परिचय- 10-June (PDF)", type: "pdf", url: "https://apps-s3-prod.utkarshapp.com/admin_v1/file_manager/pdf/894918520751342300_PDF.pdf"}
                 ],
-                "अंतरराष्ट्रीय संबंध - सुनील सर": [
-                    { title: "Part-1 - पाठ्यक्रम परिचर्चा - 07-May (Video)", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2113723/plain/720x1280.mp4" },
-                    { title: "Part-2 - पाठ्यक्रम परिचर्चा - 08-May (Video)", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2115272/plain/720x1280.mp4" },
-                    { title: "Part-3 - पाठ्यक्रम परिचर्चा - 09-May (Video)", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2116428/plain/720x1280.mp4" },
-                    { title: "Part-1 - पाठ्यक्रम परिचर्चा - PDF Notes", url: "https://apps-s3-prod.utkarshapp.com/admin_v1/file_manager/pdf/414654971756381000_PDF.pdf", isPdf: true }
+                "Exam Answer Key & Info": [
+                    {title: "द्वितीय श्रेणी प्रतियोगी परीक्षा-2024 - 07 September (Group A)", type: "pdf", url: "https://apps-s3-prod.utkarshapp.com/admin_v1/file_manager/pdf/869546380930793100_PDF.pdf"},
+                    {title: "द्वितीय श्रेणी प्रतियोगी परीक्षा-2024 - 08 September (Group B)", type: "pdf", url: "https://apps-s3-prod.utkarshapp.com/admin_v1/file_manager/pdf/412423838411256640_PDF.pdf"},
+                    {title: "Revision Test By Dr Nirmal Sir (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2104073/plain/720x1280.mp4"},
+                    {title: "Class Test Information By Nirmal Gehlot Sir (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2107064/plain/720x1280.mp4"}
                 ],
-                "राजव्यवस्था & इतिहास (Tests & Practice)": [
-                    { title: "राजव्यवस्था - AJEET SIR - 14-March", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2057971/plain/720x1280.mp4" },
-                    { title: "राजव्यवस्था(01-20) - Vikram sir - 21-March", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2070460/plain/720x1280.mp4" },
-                    { title: "इतिहास - Naresh Sir - 21-March", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2075864/plain/720x1280.mp4" },
-                    { title: "मनोविज्ञान - Rajesh sir - 04-April", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2078626/plain/720x1280.mp4" },
-                    { title: "विश्व एवं भारत का भूगोल - 15-July", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2203524/plain/720x1280.mp4" }
+                "अंतरराष्ट्रीय संबंध (सुनील सर)": [
+                    {title: "Part-3 - पाठ्यक्रम परिचर्चा - 09-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2116428/plain/720x1280.mp4"},
+                    {title: "Part-2 - पाठ्यक्रम परिचर्चा - 08-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2115272/plain/720x1280.mp4"},
+                    {title: "Part-1 - पाठ्यक्रम परिचर्चा - 07-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2113723/plain/720x1280.mp4"},
+                    {title: "Part-01 - भारत की विदेश नीति IR - 10-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2117998/plain/720x1280.mp4"},
+                    {title: "Part-02 - भारत की विदेश नीति IR - 11-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2119337/plain/720x1280.mp4"},
+                    {title: "Part-03 - भारत की विदेश नीति IR - 13-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2120665/plain/720x1280.mp4"},
+                    {title: "Part-04 - भारत की विदेश नीति IR - 15-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2123237/plain/720x1280.mp4"},
+                    {title: "Part-05 - भारत की विदेश नीति IR - 16-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2124792/plain/720x1280.mp4"},
+                    {title: "Part-06 - भारत की विदेश नीति IR - 17-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2126168/plain/720x1280.mp4"},
+                    {title: "Part-01 - संयुक्त राष्ट्र संघ - 18-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2127554/plain/720x1280.mp4"},
+                    {title: "Part-02 - संयुक्त राष्ट्र संघ - 24-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2170279/plain/720x1280.mp4"},
+                    {title: "Part-03 - संयुक्त राष्ट्र संघ - 26-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2173389/plain/720x1280.mp4"},
+                    {title: "Part-04 - संयुक्त राष्ट्र संघ - 27-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2175082/plain/720x1280.mp4"},
+                    {title: "Part-05 - संयुक्त राष्ट्र संघ - 28-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2176560/plain/720x1280.mp4"},
+                    {title: "Part-01 - वैश्वीकरण - 29-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2177995/plain/720x1280.mp4"},
+                    {title: "Part-02 - वैश्वीकरण - 01-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2179456/plain/720x1280.mp4"}
+                ],
+                "भारत का भूगोल (जगेश जोशी सर)": [
+                    {title: "Part-01 - भारत की अवस्थिति और विस्तार - 20-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2128907/plain/720x1280.mp4"},
+                    {title: "Part-02 - भारत की अवस्थिति और विस्तार - 20-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2128908/plain/720x1280.mp4"},
+                    {title: "Part-03 - भारत की अवस्थिति और विस्तार - 21-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2130491/plain/720x1280.mp4"},
+                    {title: "Part-04 - भारत की अवस्थिति और विस्तार - 21-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2130492/plain/720x1280.mp4"},
+                    {title: "Part-05 - भारत की अवस्थिति और विस्तार - 22-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2132159/plain/720x1280.mp4"},
+                    {title: "Part-06 - भारत की अवस्थिति और विस्तार - 22-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2132160/plain/720x1280.mp4"},
+                    {title: "Part-07 - भारत की अवस्थिति और विस्तार - 23-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2133536/plain/720x1280.mp4"},
+                    {title: "Part-08 - भारत की अवस्थिति और विस्तार - 23-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2133537/plain/720x1280.mp4"},
+                    {title: "Part-09 - भारत की अवस्थिति और विस्तार - 24-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2135043/plain/720x1280.mp4"},
+                    {title: "Part-01 - भारत का भौतिक स्वरूप - 25-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2136527/plain/720x1280.mp4"},
+                    {title: "Part-02 - भारत का भौतिक स्वरूप - 25-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2136528/plain/720x1280.mp4"},
+                    {title: "Part-03 - भारत का भौतिक स्वरूप - 27-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2137983/plain/720x1280.mp4"},
+                    {title: "Part-04 - भारत का भौतिक स्वरूप - 27-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2137984/plain/720x1280.mp4"},
+                    {title: "Part-05 - भारत का भौतिक स्वरूप - 28-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2139646/plain/720x1280.mp4"},
+                    {title: "Part-06 - भारत का भौतिक स्वरूप - 29-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2141203/plain/720x1280.mp4"},
+                    {title: "Part-07 - भारत का भौतिक स्वरूप - 29-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2141204/plain/720x1280.mp4"},
+                    {title: "Part-08 - भारत का भौतिक स्वरूप - 30-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2142701/plain/720x1280.mp4"},
+                    {title: "Part-01 - भारत का उत्तरी मैदान - 30-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2142702/plain/720x1280.mp4"},
+                    {title: "Part-01 - प्रायद्वीपीय पठार - 04-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2146528/plain/720x1280.mp4"},
+                    {title: "Part-02 - प्रायद्वीपीय पठार - 04-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2146529/plain/720x1280.mp4"},
+                    {title: "Part-03 - प्रायद्वीपीय पठार - 05-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2147603/plain/720x1280.mp4"},
+                    {title: "Part-04 - प्रायद्वीपीय पठार - 05-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2147604/plain/720x1280.mp4"},
+                    {title: "Part-05 - प्रायद्वीपीय पठार - 06-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2149098/plain/720x1280.mp4"},
+                    {title: "Part-01 - अपवाह - 06-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2149099/plain/720x1280.mp4"},
+                    {title: "Part-2 - अपवाह - 07-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2150606/plain/720x1280.mp4"},
+                    {title: "Part-3 - अपवाह - 07-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2150605/plain/720x1280.mp4"},
+                    {title: "Part-4 - अपवाह - 08-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2152268/plain/720x1280.mp4"},
+                    {title: "Part-5 - अपवाह - 08-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2152269/plain/720x1280.mp4"},
+                    {title: "Part-6 - अपवाह - 11-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2155306/plain/720x1280.mp4"},
+                    {title: "Part-7 - अपवाह - 11-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2155307/plain/720x1280.mp4"},
+                    {title: "Part-1 - भारत की जलवायु प्रक्रिया - 12-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2156740/plain/720x1280.mp4"},
+                    {title: "Part-2 - भारत की जलवायु प्रक्रिया - 12-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2156741/plain/720x1280.mp4"},
+                    {title: "Part-3 - भारत की जलवायु प्रक्रिया - 13-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2158238/plain/720x1280.mp4"},
+                    {title: "Part-4 - भारत की जलवायु प्रक्रिया - 13-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2158239/plain/720x1280.mp4"},
+                    {title: "Part-5 - भारत की जलवायु प्रक्रिया - 14-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2159545/plain/720x1280.mp4"},
+                    {title: "Part-6 - भारत की जलवायु प्रक्रिया - 14-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2159546/plain/720x1280.mp4"},
+                    {title: "Part-1 - भारत की वनस्पति - 18-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2162803/plain/720x1280.mp4"},
+                    {title: "Part-2 - भारत की वनस्पति - 18-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2162802/plain/720x1280.mp4"},
+                    {title: "Part-3 - भारत की वनस्पति - 19-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2164131/plain/720x1280.mp4"},
+                    {title: "Part-4 - भारत की वनस्पति - 19-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2164132/plain/720x1280.mp4"},
+                    {title: "Part-1 - ऊर्जा संसाधन - 20-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2165831/plain/720x1280.mp4"},
+                    {title: "Part-2 - ऊर्जा संसाधन - 20-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2165832/plain/720x1280.mp4"},
+                    {title: "Part-3 - ऊर्जा संसाधन - 21-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2167230/plain/720x1280.mp4"}
+                ],
+                "World Geography (संदीप यादव सर)": [
+                    {title: "Part-1 - पाठ्यक्रम परिचर्चा - 20-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2128919/plain/720x1280.mp4"},
+                    {title: "Part-01 - अक्षांश और देशांतर - 21-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2130482/plain/720x1280.mp4"},
+                    {title: "Part-02 - अक्षांश और देशांतर - 22-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2132164/plain/720x1280.mp4"},
+                    {title: "Part-03 - अक्षांश और देशांतर - 23-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2133543/plain/720x1280.mp4"},
+                    {title: "Part-01 - वायुदाब - 24-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2135049/plain/720x1280.mp4"},
+                    {title: "Part-02 - वायुदाब - 25-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2136538/plain/720x1280.mp4"},
+                    {title: "Part-03 - वायुदाब - 27-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2138002/plain/720x1280.mp4"},
+                    {title: "Part-04 - वायुदाब - 28-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2139654/plain/720x1280.mp4"},
+                    {title: "Part-05 - वायुदाब - 29-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2141205/plain/720x1280.mp4"},
+                    {title: "Part-06 - वायुदाब - 30-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2143038/plain/720x1280.mp4"},
+                    {title: "Part-07 - वायुदाब - 12-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2156764/plain/720x1280.mp4"},
+                    {title: "Part-01 - दक्षिण अमेरिका - 13-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2158245/plain/720x1280.mp4"},
+                    {title: "Part-02 - दक्षिण अमेरिका - 14-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2159551/plain/720x1280.mp4"},
+                    {title: "Part-03 - दक्षिण अमेरिका - 15-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2161112/plain/720x1280.mp4"},
+                    {title: "Part-01 - ऑस्ट्रेलिया - 18-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2162326/plain/720x1280.mp4"},
+                    {title: "Part-01 - अफ्रीका - 19-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2164139/plain/720x1280.mp4"},
+                    {title: "Part-02 - अफ्रीका - 20-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2165843/plain/720x1280.mp4"},
+                    {title: "Part-03 - अफ्रीका - 24-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2170278/plain/720x1280.mp4"},
+                    {title: "Part-04 - अफ्रीका - 25-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2172105/plain/720x1280.mp4"},
+                    {title: "Part-05 - अफ्रीका - 26-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2173388/plain/720x1280.mp4"},
+                    {title: "Part-01 - उत्तर अमेरिका महाद्वीप - 27-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2175081/plain/720x1280.mp4"},
+                    {title: "Part-02 - उत्तर अमेरिका महाद्वीप - 28-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2176559/plain/720x1280.mp4"},
+                    {title: "Part-03 - उत्तर अमेरिका महाद्वीप - 29-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2177994/plain/720x1280.mp4"},
+                    {title: "Part-04 - उत्तर अमेरिका महाद्वीप - 02-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2181166/plain/720x1280.mp4"},
+                    {title: "Part-1 - यूरोप महाद्वीप - 03-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2182866/plain/720x1280.mp4"},
+                    {title: "Part-2 - यूरोप महाद्वीप - 04-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2184386/plain/720x1280.mp4"},
+                    {title: "Part-1 - एशिया महाद्वीप - 04-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2184798/plain/720x1280.mp4"},
+                    {title: "Part-1 - अंटार्कटिका महाद्वीप - 05-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2185737/plain/720x1280.mp4"},
+                    {title: "Part-2 - अंटार्कटिका महाद्वीप - 05-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2185738/plain/720x1280.mp4"},
+                    {title: "Part-01 - महासागर - 06-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2187284/plain/720x1280.mp4"},
+                    {title: "Part-02 - महासागर - 06-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2187285/plain/720x1280.mp4"},
+                    {title: "Part-03 - महासागर - 08-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2188738/plain/720x1280.mp4"},
+                    {title: "Part-04 - महासागर - 08-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2188739/plain/720x1280.mp4"},
+                    {title: "Part-01 - विश्व जनसंख्या - 09-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2190386/plain/720x1280.mp4"},
+                    {title: "Part-02 - विश्व जनसंख्या - 10-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2191577/plain/720x1280.mp4"},
+                    {title: "Part-01 - पर्यावरण प्रदूषण - 11-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2193470/plain/720x1280.mp4"},
+                    {title: "Part-02 - पर्यावरण प्रदूषण - 11-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2193471/plain/720x1280.mp4"},
+                    {title: "Part-03 - पर्यावरण प्रदूषण - 12-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2194885/plain/720x1280.mp4"},
+                    {title: "Part-04 - पर्यावरण प्रदूषण - 12-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2194886/plain/720x1280.mp4"}
+                ],
+                "राजस्थान कला एवं संस्कृति (महेंद्र सर)": [
+                    {title: "Part-1 -राजस्थान के प्रमुख लोक गीत - 24-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2170259/plain/720x1280.mp4"},
+                    {title: "Part-2 -राजस्थान के प्रमुख लोक गीत - 25-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2172095/plain/720x1280.mp4"},
+                    {title: "Part-3 -राजस्थान के प्रमुख लोक गीत - 26-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2173387/plain/720x1280.mp4"},
+                    {title: "Part-4 -राजस्थान के प्रमुख लोक गीत - 27-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2175080/plain/720x1280.mp4"},
+                    {title: "Part-1 - राजस्थान के प्रमुख वाद्य यंत्र - 28-June (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2176558/plain/720x1280.mp4"},
+                    {title: "Part-2 - राजस्थान के प्रमुख वाद्य यंत्र - 01-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2179455/plain/720x1280.mp4"},
+                    {title: "Part-3 - राजस्थान के प्रमुख वाद्य यंत्र - 02-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2181165/plain/720x1280.mp4"},
+                    {title: "Part-4 - राजस्थान के प्रमुख वाद्य यंत्र - 03-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2182865/plain/720x1280.mp4"},
+                    {title: "Part-01 - राजस्थान के लोक नृत्य - 06-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2187283/plain/720x1280.mp4"},
+                    {title: "Part-02 - राजस्थान के लोक नृत्य - 08-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2188737/plain/720x1280.mp4"},
+                    {title: "Part-03 - राजस्थान के लोक नृत्य - 09-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2190385/plain/720x1280.mp4"},
+                    {title: "Part-04 - राजस्थान के लोक नृत्य - 10-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2191576/plain/720x1280.mp4"},
+                    {title: "Part-05 - राजस्थान के लोक नृत्य - 10-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2192267/plain/720x1280.mp4"},
+                    {title: "Part-06 - राजस्थान के लोक नृत्य - 11-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2193469/plain/720x1280.mp4"},
+                    {title: "Part-07 - राजस्थान के लोक नृत्य - 12-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2194884/plain/720x1280.mp4"},
+                    {title: "Part-01 - राजस्थान की चित्रकला - 13-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2196323/plain/720x1280.mp4"},
+                    {title: "Part-02 - राजस्थान की चित्रकला - 15-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2197826/plain/720x1280.mp4"},
+                    {title: "Part-03 - राजस्थान की चित्रकला - 16-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2199391/plain/720x1280.mp4"},
+                    {title: "Part-4 - राजस्थान की चित्रकला - 17-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2201115/plain/720x1280.mp4"},
+                    {title: "Part-5 - राजस्थान की चित्रकला - 18-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2202478/plain/720x1280.mp4"},
+                    {title: "Part-6 - राजस्थान की चित्रकला - 19-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2203985/plain/720x1280.mp4"},
+                    {title: "Part-1 - राजस्थानी भाषा, बोलियां, साहित्य - 20-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2205527/plain/720x1280.mp4"},
+                    {title: "Part-2 - राजस्थानी भाषा, बोलियां, साहित्य - 22-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2207041/plain/720x1280.mp4"},
+                    {title: "Part-3 - राजस्थानी भाषा, बोलियां, साहित्य - 23-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2208854/plain/720x1280.mp4"},
+                    {title: "Part-4 - राजस्थानी भाषा, बोलियां, साहित्य - 24-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2210530/plain/720x1280.mp4"},
+                    {title: "Part-5 - राजस्थानी भाषा, बोलियां, साहित्य - 25-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2212113/plain/720x1280.mp4"},
+                    {title: "Part-6 - राजस्थानी भाषा, बोलियां, साहित्य - 26-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2213632/plain/720x1280.mp4"},
+                    {title: "Part-7 - राजस्थानी भाषा, बोलियां, साहित्य - 27-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2215291/plain/720x1280.mp4"},
+                    {title: "Part-8 - राजस्थानी भाषा, बोलियां, साहित्य - 29-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2216805/plain/720x1280.mp4"},
+                    {title: "Part-1 - वेशभूषा - 30-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2218483/plain/720x1280.mp4"},
+                    {title: "Part-2 - वेशभूषा - 05-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2225628/plain/720x1280.mp4"},
+                    {title: "Part-1 - आभूषण - 06-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2227807/plain/720x1280.mp4"},
+                    {title: "Part-2 - आभूषण - 07-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2229202/plain/720x1280.mp4"},
+                    {title: "Part-1 - रीति रिवाज - 08-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2230775/plain/720x1280.mp4"},
+                    {title: "Part-2 - रीति रिवाज - 09-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2232375/plain/720x1280.mp4"},
+                    {title: "Part-3 - रीति रिवाज - 10-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2233920/plain/720x1280.mp4"},
+                    {title: "Part-4 - रीति रिवाज - 11-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2235348/plain/720x1280.mp4"},
+                    {title: "Part-1 - राजस्थान के प्रमुख मंदिर - 11-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2235349/plain/720x1280.mp4"},
+                    {title: "Part-2 - राजस्थान के प्रमुख मंदिर - 13-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2237015/plain/720x1280.mp4"},
+                    {title: "Part-3 - राजस्थान के प्रमुख मंदिर - 14-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2238600/plain/720x1280.mp4"},
+                    {title: "Part-4 - राजस्थान के प्रमुख मंदिर - 22-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2243494/plain/720x1280.mp4"},
+                    {title: "Part-5 - राजस्थान के प्रमुख मंदिर - 23-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2244971/plain/720x1280.mp4"},
+                    {title: "Part-6 - राजस्थान के प्रमुख मंदिर - 24-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2246573/plain/720x1280.mp4"},
+                    {title: "Part-7 - राजस्थान के प्रमुख मंदिर - 24-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2246574/plain/720x1280.mp4"},
+                    {title: "Part-8 - राजस्थान के प्रमुख मंदिर - 25-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2247932/plain/720x1280.mp4"},
+                    {title: "Part-9 - राजस्थान के प्रमुख मंदिर - 26-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2248120/plain/720x1280.mp4"},
+                    {title: "Part-10 - राजस्थान के प्रमुख मंदिर - 27-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2250244/plain/720x1280.mp4"},
+                    {title: "Part-11 - राजस्थान के प्रमुख मंदिर - 28-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2251919/plain/720x1280.mp4"},
+                    {title: "Part-12 - राजस्थान के प्रमुख मंदिर - 29-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2253562/plain/720x1280.mp4"},
+                    {title: "Part-13 - राजस्थान के प्रमुख मंदिर - 30-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2255364/plain/720x1280.mp4"},
+                    {title: "Part-14 - राजस्थान के प्रमुख मंदिर - 31-August (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2256860/plain/720x1280.mp4"},
+                    {title: "Part-15 - राजस्थान के प्रमुख मंदिर - 01-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2258173/plain/720x1280.mp4"},
+                    {title: "Part-1 - राजस्थान के प्रमुख लोक देवता - 01-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2258174/plain/720x1280.mp4"},
+                    {title: "Part-2 - राजस्थान के प्रमुख लोक देवता - 02-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2258363/plain/720x1280.mp4"},
+                    {title: "Part-3 - राजस्थान के प्रमुख लोक देवता - 02-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2258364/plain/720x1280.mp4"},
+                    {title: "Part-4 - राजस्थान के प्रमुख लोक देवता - 03-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2260054/plain/720x1280.mp4"},
+                    {title: "Part-5 - राजस्थान के प्रमुख लोक देवता - 04-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2261696/plain/720x1280.mp4"},
+                    {title: "Part-1 - राजस्थान की प्रमुख लोक देवियां - 04-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2261698/plain/720x1280.mp4"},
+                    {title: "Part-2 - राजस्थान की प्रमुख लोक देवियां - 05-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2263145/plain/720x1280.mp4"},
+                    {title: "Part-3 - राजस्थान की प्रमुख लोक देवियां - 06-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2264223/plain/720x1280.mp4"},
+                    {title: "Part-4 - राजस्थान की प्रमुख लोक देवियां - 06-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2264224/plain/720x1280.mp4"},
+                    {title: "Part-1 - संत सम्प्रदाय - 07-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2265491/plain/720x1280.mp4"},
+                    {title: "Part-2 - संत सम्प्रदाय - 07-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2265492/plain/720x1280.mp4"},
+                    {title: "Part-3 - संत सम्प्रदाय - 09-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2266856/plain/720x1280.mp4"},
+                    {title: "Part-4 - संत सम्प्रदाय - 09-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2266857/plain/720x1280.mp4"},
+                    {title: "Part-5 - संत सम्प्रदाय - 10-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2268850/plain/720x1280.mp4"},
+                    {title: "Part-6 - संत सम्प्रदाय - 10-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2268851/plain/720x1280.mp4"},
+                    {title: "Part-1 - मेले एवं त्यौहार - 11-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2270534/plain/720x1280.mp4"},
+                    {title: "Part-2 - मेले एवं त्यौहार - 11-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2270535/plain/720x1280.mp4"},
+                    {title: "Part-3 - मेले एवं त्यौहार - 12-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2272226/plain/720x1280.mp4"},
+                    {title: "Part-4 - मेले एवं त्यौहार - 12-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2272227/plain/720x1280.mp4"},
+                    {title: "Part-5 - मेले एवं त्यौहार - 13-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2273553/plain/720x1280.mp4"},
+                    {title: "Part-6 - मेले एवं त्यौहार - 13-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2273554/plain/720x1280.mp4"},
+                    {title: "Part-7 - मेले एवं त्यौहार - 14-September (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2274306/plain/720x1280.mp4"}
+                ],
+                "भारत की अर्थव्यवस्था (माधुरी कालरा मेम)": [
+                    {title: "Part-1 - पाठ्यक्रम परिचर्चा - 30-April (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2105121/plain/720x1280.mp4"},
+                    {title: "Part-2 - पाठ्यक्रम परिचर्चा - 01-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2106488/plain/720x1280.mp4"},
+                    {title: "Part-1 - विदेशी व्यापार - 02-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2107899/plain/720x1280.mp4"},
+                    {title: "Part-2 - विदेशी व्यापार - 03-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2109463/plain/720x1280.mp4"},
+                    {title: "Part-3 - विदेशी व्यापार - 04-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2110911/plain/720x1280.mp4"},
+                    {title: "Part-4 - विदेशी व्यापार - 06-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2112211/plain/720x1280.mp4"},
+                    {title: "Part-5 - विदेशी व्यापार - 07-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2113726/plain/720x1280.mp4"},
+                    {title: "Part-6 - विदेशी व्यापार - 08-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2115274/plain/720x1280.mp4"},
+                    {title: "Part-7 - विदेशी व्यापार - 09-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2116429/plain/720x1280.mp4"},
+                    {title: "Part-8 - विदेशी व्यापार - 10-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2117999/plain/720x1280.mp4"},
+                    {title: "Part-9 - विदेशी व्यापार - 11-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2119338/plain/720x1280.mp4"},
+                    {title: "Part-10 - विदेशी व्यापार - 13-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2120666/plain/720x1280.mp4"},
+                    {title: "Part-01 - भारतीय उद्योग - 14-May (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2121803/plain/720x1280.mp4"}
+                ],
+                "शिक्षा मनोविज्ञान (डॉ. मदन शर्मा सर)": [
+                    {title: "Part-1 - पाठ्यक्रम परिचर्चा - 26-February (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2033175/plain/720x1280.mp4"},
+                    {title: "Part-1 - मनोविज्ञान का परिचय - 27-February (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2034818/plain/720x1280.mp4"},
+                    {title: "Part-1 - शिक्षा मनोविज्ञान - 28-February (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2036351/plain/720x1280.mp4"},
+                    {title: "Part-2 - शिक्षा मनोविज्ञान - 29-February (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2037776/plain/720x1280.mp4"},
+                    {title: "Part-3 - शिक्षा मनोविज्ञान - 01-March (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2039167/plain/720x1280.mp4"},
+                    {title: "Part-1 - वंशक्रम वातावरण - 02-March (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2040614/plain/720x1280.mp4"},
+                    {title: "Part-2 - वंशक्रम वातावरण - 04-March (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2041934/plain/720x1280.mp4"},
+                    {title: "Part-3 - वंशक्रम वातावरण - 05-March (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2043485/plain/720x1280.mp4"}
+                ],
+                "राजस्थान का भूगोल (पवन चौधरी सर)": [
+                    {title: "Part-1 - पाठ्यक्रम परिचर्चा - 03-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2182867/plain/720x1280.mp4"},
+                    {title: "Part-2 - पाठ्यक्रम परिचर्चा - 04-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2184387/plain/720x1280.mp4"},
+                    {title: "Part-1 - सामान्य जानकारी - 05-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2185711/plain/720x1280.mp4"},
+                    {title: "Part-2 - सामान्य जानकारी - 13-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2196324/plain/720x1280.mp4"},
+                    {title: "Part-3 - सामान्य जानकारी - 13-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2196325/plain/720x1280.mp4"},
+                    {title: "Part-01 - राजस्थान का स्थिति एवं विस्तार - 17-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2201116/plain/720x1280.mp4"},
+                    {title: "Part-02 - राजस्थान का स्थिति एवं विस्तार - 17-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2201117/plain/720x1280.mp4"},
+                    {title: "Part-03 - राजस्थान का स्थिति एवं विस्तार - 18-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2202319/plain/720x1280.mp4"},
+                    {title: "Part-04 - राजस्थान का स्थिति एवं विस्तार - 19-July (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2203986/plain/720x1280.mp4"}
+                ],
+                "राजस्थान का इतिहास (नरेश कुमार शर्मा सर)": [
+                    {title: "Part-1 - 1857 की क्रांति - 05-March (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2043486/plain/720x1280.mp4"},
+                    {title: "Part-2 - 1857 की क्रांति - 06-March (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2044804/plain/720x1280.mp4"},
+                    {title: "Part-3 - 1857 की क्रांति - 07-March (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2046117/plain/720x1280.mp4"},
+                    {title: "Part-4 - 1857 की क्रांति - 09-March (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2049182/plain/720x1280.mp4"},
+                    {title: "Part-5 - 1857 की क्रांति - 11-March (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2050609/plain/720x1280.mp4"}
+                ]
+            },
+            "2nd Grade 1st Paper(G.K) Complete Notes & DPP": {
+                "भारत का भूगोल (DPP & Notes)": [
+                    {title: "ऊर्जा संसाधन (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2185214/plain/720x1280.mp4"},
+                    {title: "स्थिति एवं विस्तार (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2184973/plain/720x1280.mp4"},
+                    {title: "भौतिक प्रदेश (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2189821/plain/720x1280.mp4"},
+                    {title: "मानसून (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2189817/plain/720x1280.mp4"},
+                    {title: "अपवाह तंत्र (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2185189/plain/720x1280.mp4"},
+                    {title: "वनस्पति (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2185193/plain/720x1280.mp4"}
+                ],
+                "विश्व का भूगोल (DPP & Notes)": [
+                    {title: "महाद्वीप, महासागर एवं उनकी विशेषताएँ(Q1-15) (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2192828/plain/720x1280.mp4"},
+                    {title: "महाद्वीप, महासागर एवं उनकी विशेषताएँ(Q16-30) (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2192829/plain/720x1280.mp4"},
+                    {title: "वैश्विक पवन प्रणाली (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2188627/plain/720x1280.mp4"},
+                    {title: "पर्यावरणीय समस्याएँ (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2188640/plain/720x1280.mp4"},
+                    {title: "भूमण्डलीकरण एवं इसका प्रभाव (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2188609/plain/720x1280.mp4"},
+                    {title: "जनसंख्या वितरण तथा प्रवास (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2188620/plain/720x1280.mp4"}
+                ],
+                "भारतीय संविधान एवं राजव्यवस्था (DPP & Notes)": [
+                    {title: "भारतीय संविधान का विकास (1919 एवं 1935) (Video)", type: "video", url: "https://d1q5ugnejk3zoi.cloudfront.net/ut-production-jw/admin_v1/file_library/videos/enc_plain_mp4/2188453/plain/720x1280.mp4"}
                 ]
             }
         };
 
-        let currentStep = 'home'; // home, subjects, lectures, player
-        let selectedCourseName = '';
-        let selectedSubjectName = '';
+        let currentCourse = null;
+        let currentSubject = null;
 
-        function selectCourse(courseName) {
-            selectedCourseName = courseName;
-            currentStep = 'subjects';
-            updateBreadcrumb();
-            document.getElementById('backBtn').classList.remove('hidden');
+        function showCourses() {
+            currentCourse = null;
+            currentSubject = null;
+            document.getElementById('coursesView').classList.remove('hidden');
+            document.getElementById('subjectsView').classList.add('hidden');
+            document.getElementById('itemsView').classList.add('hidden');
             
-            document.getElementById('courseView').classList.add('hidden');
-            let subView = document.getElementById('subjectView');
-            subView.innerHTML = '';
-            subView.classList.remove('hidden');
+            document.getElementById('bcCourse').classList.add('hidden');
+            document.getElementById('bcSubject').classList.add('hidden');
 
-            let subjects = Object.keys(courseData[courseName]);
-            subjects.forEach(sub => {
-                subView.innerHTML += `
-                    <div class="card" onclick="selectSubject('${sub}')">
-                        <h3>📖 ${sub}</h3>
-                        <p>Click to view chapters & lectures</p>
+            const grid = document.getElementById('coursesGrid');
+            grid.innerHTML = '';
+
+            for (let course in portalData) {
+                grid.innerHTML += `
+                    <div class="card" onclick="showSubjects('${course.replace(/'/g, "\\'")}')">
+                        <div>
+                            <div class="card-icon"><i class="fa-solid fa-folder-tree"></i></div>
+                            <h3>${course}</h3>
+                            <p>${Object.keys(portalData[course]).length} विषय / फोल्डर उपलब्ध</p>
+                        </div>
+                        <span class="badge">कोर्स खोलें <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                `;
+            }
+        }
+
+        function showSubjects(courseName) {
+            currentCourse = courseName;
+            currentSubject = null;
+            document.getElementById('coursesView').classList.add('hidden');
+            document.getElementById('subjectsView').classList.remove('hidden');
+            document.getElementById('itemsView').classList.add('hidden');
+
+            const bcCourse = document.getElementById('bcCourse');
+            const bcCourseLink = document.getElementById('bcCourseLink');
+            bcCourse.classList.remove('hidden');
+            bcCourseLink.innerText = courseName;
+            bcCourseLink.setAttribute('onclick', `showSubjects('${courseName.replace(/'/g, "\\'")}')`);
+            document.getElementById('bcSubject').classList.add('hidden');
+
+            document.getElementById('subjectsTitle').innerHTML = `<i class="fa-solid fa-book-open"></i> ${courseName} - विषय सूची`;
+
+            const grid = document.getElementById('subjectsGrid');
+            grid.innerHTML = '';
+
+            const subjects = portalData[courseName];
+            for (let subject in subjects) {
+                const count = subjects[subject].length;
+                grid.innerHTML += `
+                    <div class="card" onclick="showItems('${courseName.replace(/'/g, "\\'")}', '${subject.replace(/'/g, "\\'")}')">
+                        <div>
+                            <div class="card-icon"><i class="fa-solid fa-folder"></i></div>
+                            <h3>${subject}</h3>
+                            <p>${count} वीडियो / लेक्चर्स</p>
+                        </div>
+                        <span class="badge">वीडियो देखें <i class="fa-solid fa-play"></i></span>
+                    </div>
+                `;
+            }
+        }
+
+        function showItems(courseName, subjectName) {
+            currentCourse = courseName;
+            currentSubject = subjectName;
+            document.getElementById('coursesView').classList.add('hidden');
+            document.getElementById('subjectsView').classList.add('hidden');
+            document.getElementById('itemsView').classList.remove('hidden');
+
+            const bcCourse = document.getElementById('bcCourse');
+            const bcCourseLink = document.getElementById('bcCourseLink');
+            bcCourse.classList.remove('hidden');
+            bcCourseLink.innerText = courseName;
+            bcCourseLink.setAttribute('onclick', `showSubjects('${courseName.replace(/'/g, "\\'")}')`);
+
+            const bcSubject = document.getElementById('bcSubject');
+            const bcSubjectText = document.getElementById('bcSubjectText');
+            bcSubject.classList.remove('hidden');
+            bcSubjectText.innerText = subjectName;
+
+            document.getElementById('itemsTitle').innerHTML = `<i class="fa-solid fa-video"></i> ${subjectName} - वीडियो सूची`;
+
+            const list = document.getElementById('itemsList');
+            list.innerHTML = '';
+
+            const items = portalData[courseName][subjectName];
+            items.forEach((item, index) => {
+                const icon = item.type === 'video' ? 'fa-video' : 'fa-file-pdf';
+                const btnClass = item.type === 'video' ? 'btn-primary' : 'btn-outline';
+                
+                let actionBtn = '';
+                if (item.type === 'video') {
+                    actionBtn = `<button class="btn btn-primary" onclick="openVideoPlayer('${item.title.replace(/'/g, "\\'")}', '${item.url}')"><i class="fa-solid fa-play"></i> वीडियो चलाएं</button>`;
+                } else {
+                    actionBtn = `<a href="${item.url}" target="_blank" class="btn btn-outline"><i class="fa-solid fa-download"></i> पीडीएफ देखें</a>`;
+                }
+                
+                list.innerHTML += `
+                    <div class="item-row">
+                        <div class="item-info">
+                            <i class="fa-solid ${icon}"></i>
+                            <div class="item-details">
+                                <h4>${item.title}</h4>
+                                <span>लेक्चर #${index + 1} (${item.type.toUpperCase()})</span>
+                            </div>
+                        </div>
+                        ${actionBtn}
                     </div>
                 `;
             });
         }
 
-        function selectSubject(subjectName) {
-            selectedSubjectName = subjectName;
-            currentStep = 'lectures';
-            updateBreadcrumb();
-
-            document.getElementById('subjectView').classList.add('hidden');
-            let lecView = document.getElementById('lectureView');
-            lecView.innerHTML = '';
-            lecView.classList.remove('hidden');
-
-            let lectures = courseData[selectedCourseName][subjectName];
-            lectures.forEach(lec => {
-                if(lec.isPdf) {
-                    lecView.innerHTML += `
-                        <div class="lecture-item" onclick="window.open('${lec.url}', '_blank')">
-                            <span class="lecture-title">📄 ${lec.title}</span>
-                            <span class="play-btn" style="background: #0f172a;">View PDF</span>
-                        </div>
-                    `;
-                } else {
-                    lecView.innerHTML += `
-                        <div class="lecture-item" onclick="playVideo('${lec.title}', '${lec.url}')">
-                            <span class="lecture-title">▶ ${lec.title}</span>
-                            <span class="play-btn">Play Video</span>
-                        </div>
-                    `;
-                }
-            });
-        }
-
-        function playVideo(title, url) {
-            currentStep = 'player';
-            updateBreadcrumb();
-
-            document.getElementById('lectureView').classList.add('hidden');
-            let playerView = document.getElementById('playerView');
-            playerView.classList.remove('hidden');
-
-            let video = document.getElementById('videoPlayer');
-            video.src = url;
-            video.play();
-            document.getElementById('videoTitleDisplay').innerText = title;
-        }
-
-        function updateBreadcrumb() {
-            let bc = document.getElementById('breadcrumb');
-            if(currentStep === 'home') {
-                bc.innerHTML = `<span>Home</span>`;
-            } else if(currentStep === 'subjects') {
-                bc.innerHTML = `<span onclick="resetToHome()">Home</span> > <span>${selectedCourseName}</span>`;
-            } else if(currentStep === 'lectures') {
-                bc.innerHTML = `<span onclick="resetToHome()">Home</span> > <span onclick="selectCourse('${selectedCourseName}')">${selectedCourseName}</span> > <span>${selectedSubjectName}</span>`;
-            } else if(currentStep === 'player') {
-                bc.innerHTML = `<span onclick="resetToHome()">Home</span> > <span onclick="selectCourse('${selectedCourseName}')">${selectedCourseName}</span> > <span onclick="selectSubject('${selectedSubjectName}')">${selectedSubjectName}</span> > <span>Playing Video</span>`;
-            }
-        }
-
-        function resetToHome() {
-            currentStep = 'home';
-            updateBreadcrumb();
-            document.getElementById('backBtn').classList.add('hidden');
+        function openVideoPlayer(title, url) {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('customVideoPlayer');
+            document.getElementById('modalVideoTitle').innerText = title;
             
-            document.getElementById('courseView').classList.remove('hidden');
-            document.getElementById('subjectView').classList.add('hidden');
-            document.getElementById('lectureView').classList.add('hidden');
-            document.getElementById('playerView').classList.add('hidden');
-            document.getElementById('videoPlayer').pause();
+            // Adjusting URL parameters or swapping streams if multiple resolutions exist
+            video.src = url;
+            modal.classList.remove('hidden');
+            video.play();
         }
 
-        function goBack() {
-            if(currentStep === 'player') {
-                document.getElementById('videoPlayer').pause();
-                selectSubject(selectedSubjectName);
-            } else if(currentStep === 'lectures') {
-                selectCourse(selectedCourseName);
-            } else if(currentStep === 'subjects') {
-                resetToHome();
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const video = document.getElementById('customVideoPlayer');
+            video.pause();
+            video.src = '';
+            modal.classList.add('hidden');
+        }
+
+        function changeSpeed() {
+            const speed = document.getElementById('playbackSpeed').value;
+            const video = document.getElementById('customVideoPlayer');
+            video.playbackRate = parseFloat(speed);
+        }
+
+        function changeQuality() {
+            const quality = document.getElementById('qualitySelector').value;
+            const video = document.getElementById('customVideoPlayer');
+            // Cloudfront/S3 URLs handling: CloudFront paths often support resizing segments or changing quality tokens.
+            // Here we dynamically switch query strings or path parameters if a multi-bitrate structure is supported, 
+            // otherwise inform user or handle url transformation.
+            let currentSrc = video.src;
+            if (currentSrc) {
+                if (quality === '480p') {
+                    currentSrc = currentSrc.replace('/720x1280.mp4', '/480x854.mp4');
+                } else if (quality === '360p') {
+                    currentSrc = currentSrc.replace('/720x1280.mp4', '/360x640.mp4');
+                } else {
+                    currentSrc = currentSrc.replace(/\/(\d+)x(\d+)\.mp4/, '/720x1280.mp4');
+                }
+                const currentTime = video.currentTime;
+                video.src = currentSrc;
+                video.currentTime = currentTime;
+                video.play();
             }
         }
+
+        function filterContent() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            if (!query) {
+                if (currentSubject) showItems(currentCourse, currentSubject);
+                else if (currentCourse) showSubjects(currentCourse);
+                else showCourses();
+                return;
+            }
+
+            document.getElementById('coursesView').classList.add('hidden');
+            document.getElementById('subjectsView').classList.add('hidden');
+            document.getElementById('itemsView').classList.remove('hidden');
+            document.getElementById('itemsTitle').innerHTML = `<i class="fa-solid fa-search"></i> खोज परिणाम: "${query}"`;
+
+            const list = document.getElementById('itemsList');
+            list.innerHTML = '';
+
+            let found = false;
+            for (let course in portalData) {
+                for (let subject in portalData[course]) {
+                    portalData[course][subject].forEach((item, index) => {
+                        if (item.title.toLowerCase().includes(query) || subject.toLowerCase().includes(query)) {
+                            found = true;
+                            const icon = item.type === 'video' ? 'fa-video' : 'fa-file-pdf';
+                            
+                            let actionBtn = '';
+                            if (item.type === 'video') {
+                                actionBtn = `<button class="btn btn-primary" onclick="openVideoPlayer('${item.title.replace(/'/g, "\\'")}', '${item.url}')"><i class="fa-solid fa-play"></i> वीडियो चलाएं</button>`;
+                            } else {
+                                actionBtn = `<a href="${item.url}" target="_blank" class="btn btn-outline"><i class="fa-solid fa-download"></i> पीडीएफ देखें</a>`;
+                            }
+
+                            list.innerHTML += `
+                                <div class="item-row">
+                                    <div class="item-info">
+                                        <i class="fa-solid ${icon}"></i>
+                                        <div class="item-details">
+                                            <h4>${item.title}</h4>
+                                            <span>${course} &gt; ${subject}</span>
+                                        </div>
+                                    </div>
+                                    ${actionBtn}
+                                </div>
+                            `;
+                        }
+                    });
+                }
+            }
+
+            if (!found) {
+                list.innerHTML = `<p style="text-align: center; padding: 2rem; color: var(--text-muted);">कोई परिणाम नहीं मिला।</p>`;
+            }
+        }
+
+        showCourses();
     </script>
 </body>
 </html>
